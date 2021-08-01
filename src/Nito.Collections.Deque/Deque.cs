@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Diagnostics;
 
 namespace Nito.Collections
@@ -10,6 +11,7 @@ namespace Nito.Collections
     /// <typeparam name="T">The type of elements contained in the deque.</typeparam>
     [DebuggerDisplay("Count = {Count}, Capacity = {Capacity}")]
     [DebuggerTypeProxy(typeof(Deque<>.DebugView))]
+    [Serializable, DataContract]
     public sealed class Deque<T> : IList<T>, IReadOnlyList<T>, System.Collections.IList
     {
         /// <summary>
@@ -20,11 +22,13 @@ namespace Nito.Collections
         /// <summary>
         /// The circular _buffer that holds the view.
         /// </summary>
+        [DataMember(Name = "_buffer")]
         private T[] _buffer;
 
         /// <summary>
         /// The offset into <see cref="_buffer"/> where the view begins.
         /// </summary>
+        [DataMember(Name = "_offset")]
         private int _offset;
 
         /// <summary>
